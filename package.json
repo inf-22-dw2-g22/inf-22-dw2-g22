@@ -68,8 +68,9 @@
     "vary": "^1.1.2"
   },
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set ENV=dev&& node index.js",
+    "start:prod": "set ENV=prod&& node index.js"
   },
   "repository": {
     "type": "git",

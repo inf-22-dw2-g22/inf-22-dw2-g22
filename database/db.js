@@ -9,5 +9,4 @@ const sequelize = new Sequelize(`${config.DB_DATABASE}`, `${config.DB_USERNAME}`
     port: `${config.DB_PORT}`
 })
 
-
 module.exports = sequelize;

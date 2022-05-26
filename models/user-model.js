@@ -35,6 +35,7 @@ const User = database.define('user', {
     }
 })
 
+/*
 //Verificar se DEV
 if(config.ENV === 'dev'){
     User.sync({force:true}).then(()=>{
@@ -43,6 +44,7 @@ if(config.ENV === 'dev'){
             password:'senha',
             firstName:'R',
             lastName:'R',
+            admin: true,
             apiKey:'999999999'
         });
         User.create({
@@ -50,6 +52,7 @@ if(config.ENV === 'dev'){
             password:'senha',
             firstName:'R',
             lastName:'R',
+            admin: false,
             apiKey:'123456789'
         });
         User.create({
@@ -57,12 +60,14 @@ if(config.ENV === 'dev'){
             password:'senha',
             firstName:'R',
             lastName:'R',
+            admin: false,
             apiKey:'987654321'
         });      
     });
 }else{
     User.sync();
 }
-
+*/
+User.sync();
 
 module.exports = User;

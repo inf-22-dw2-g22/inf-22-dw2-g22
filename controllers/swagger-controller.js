@@ -7,9 +7,9 @@ const config = require('../service/config-service');
 const swaggerDefinition = {
     openapi: "3.0.0",
     info: { 
-      title: "ApiKeyAuthentication_03-1",
+      title: "Social",
       version: "1.0.0",
-      description: "Example 03 for API KEY Authentication",
+      description: "Connect with everyone",
       contact: { name: "Your name" },
     },
     servers: [ {url: "http://localhost:" + config.PORT,},],
