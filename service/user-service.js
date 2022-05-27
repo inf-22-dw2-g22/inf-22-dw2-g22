@@ -12,7 +12,7 @@ async function post(username, password, firstName, lastName, admin, apiKey){
         apiKey: `${apiKey}`,
     })
     return user;
-}
+};
 
 //GET PARA PEGAR TODOS USERS CRIADOS
 async function get(){
@@ -28,7 +28,7 @@ async function adm(apiKey){
     }else{
         return false;
     }
-}
+};
 
 //VERIFICADOR DE USUARIO VALIDO
 async function userValidation(userId, apiKey){
@@ -75,4 +75,17 @@ async function put(apiKey, userId, password, firstName, lastName){
 }
 
 //DELETAR UM USER
-module.exports = {get, post, getone, put};
+async function deleteOne(userId, apiKey){
+    if(await adm(apiKey) === true){
+        User.destroy({ where: { id: `${userId}`}});
+        return true;
+    }else{
+        if(await userValidation(userId, apiKey)){
+            User.destroy({ where: { id: `${userId}`}});
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
+module.exports = {get, post, getone, put, deleteOne};

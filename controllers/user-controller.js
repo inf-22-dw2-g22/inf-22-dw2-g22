@@ -1,6 +1,6 @@
 
 const config = require('../service/config-service');
-const {get, post, getone, put} = require('../service/user-service');
+const {get, post, getone, put, deleteOne} = require('../service/user-service');
 
 //CRIAR UM USUARIO NOVO
 const create = async (req, res, next) => {
@@ -29,7 +29,7 @@ const getOne = async (req, res, next) => {
     console.log('ID ->',userId);
 
     if(await getone(userId, apiKey) == false){
-        res.json('User não encontrado ou não tem permissão para fazer a pesquisa')
+        res.json('Usuário não encontrado ou não tem permissão para fazer a pesquisa')
     }else{
         const user = await getone(userId, apiKey);
         res.json(user);
@@ -53,5 +53,18 @@ const update = async (req, res, next) =>{
     }
 };
 
+//DELETAR UM USER
+const del = async (req, res, next) => {
+    const apiKey = await req.get(config.API_KEY_HEADER);
+    const userId = await req.params.id;
 
-module.exports = {getAll, create, getOne, update};
+
+    if(await deleteOne(userId, apiKey)){
+        res.status(200).json({ message: 'Usuário deletado com sucesso!'});
+    }else{
+        res.status(401).json({ message: 'Usuário não encontrado ou não tem permissão para deletar'});
+    }
+
+};
+
+module.exports = {getAll, create, getOne, update, del};
