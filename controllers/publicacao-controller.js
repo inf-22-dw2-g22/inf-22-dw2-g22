@@ -18,13 +18,13 @@ const getAll = async (req, res, next) => {
 
 //GET PARA PEGAR APENAS UMA PUBLICAÇÃO
 const getOne = async (req, res, next) => {
-    const userId = await req.params.id;
+    const publiId = await req.params.id;
 
-    if(await getone(userId) == false){
+    if(await getone(publiId) == false){
         res.json('Publicação não encontrada')
     }else{
-        const user = await getone(userId);
-        res.json(user);
+        const publi = await getone(publiId);
+        res.json(publi);
     }
 };
 

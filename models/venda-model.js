@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('../database/db');
 const config = require('../service/config-service')
+const User = require('../models/user-model')
 
 const Venda = database.define('venda', {
     id:{
@@ -27,6 +28,8 @@ const Venda = database.define('venda', {
     }
 
 })
+
+User.hasMany(Venda);
 /*
 //Verificar se DEV
 if(config.ENV === 'dev'){

@@ -17,8 +17,8 @@ async function get(){
 };
 
 //GET PARA PEGAR APENAS UMA PUBLICAÇÃO
-async function getone(userId){
-    const publi = await Publicacao.findOne({ where: {id: `${userId}`}});
+async function getone(publiId){
+    const publi = await Publicacao.findOne({ where: {id: `${publiId}`}});
     if(publi != null){
         return publi;
     }else{
