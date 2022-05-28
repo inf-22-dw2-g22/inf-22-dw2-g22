@@ -7,15 +7,20 @@ const create = async (req, res, next) => {
     const quantity = await req.body.quantity;
     const price = await req.body.price;
     const contact = await req.body.contact;
+    const apiKey = await req.get(config.API_KEY_HEADER);
     
-    const newVenda = await post(type, quantity, price, contact);
+    const newVenda = await post(type, quantity, price, contact, apiKey);
     res.json(newVenda);
 };
 
 //GET PARA PEGAR TODAS AS VENDAS CRIADAS
 const getAll = async (req, res, next) => {
-    const vendas = await get();
-    res.json(vendas);
+    if(await get()){
+        const vendas = await get();
+        res.json(vendas);
+    }else{
+        res.json('Não tem vendas criada');
+    }
 };
 
 //GET PARA PEGAR APENAS UMA VENDA

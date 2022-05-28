@@ -12,8 +12,12 @@ const create = async (req, res, next) => {
 
 //GET PARA TODAS AS PUBLICAÇOES
 const getAll = async (req, res, next) => {
-    const publis = await get();
-    res.json(publis);
+    if(await get()){
+        const publis = await get();
+        res.json(publis);
+    }else{
+        res.json('Não tem publicações criada');
+    }
 }
 
 //GET PARA PEGAR APENAS UMA PUBLICAÇÃO

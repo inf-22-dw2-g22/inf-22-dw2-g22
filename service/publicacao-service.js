@@ -13,7 +13,11 @@ async function post(namePubli, descriptionPubli){
 //GET PARA TODAS AS PUBLICAÇOES
 async function get(){
     const publis = await Publicacao.findAll();
-    return publis;
+    if(publis.length === 0){
+        return false;
+    }else{
+        return publis;
+    }
 };
 
 //GET PARA PEGAR APENAS UMA PUBLICAÇÃO

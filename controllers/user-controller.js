@@ -17,8 +17,12 @@ const create = async (req, res, next) => {
 
 //GET PARA PEGAR TODOS USERS CRIADOS
 const getAll = async (req, res, next) => {
-    const users = await get();
-    res.json(users);
+    if(await get()){
+        const users = await get();
+        res.json(users);
+    }else{
+        res.json('Não tem usuários criado');
+    }
 };
 
 //GET PARA PEGAR APENAS UM USER 

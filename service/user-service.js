@@ -17,7 +17,11 @@ async function post(username, password, firstName, lastName, admin, apiKey){
 //GET PARA PEGAR TODOS USERS CRIADOS
 async function get(){
     const users = await User.findAll();
-    return users
+    if(users.length === 0){
+        return false;
+    }else{
+        return users
+    }
 };
 
 //VERIFICADOR SE É ADM
