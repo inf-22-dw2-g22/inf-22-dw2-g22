@@ -31,15 +31,15 @@ async function get(){
     }
 };
 
-//GET PARA PEGAR APENAS UMA VENDA
-async function getone(vendaId){
-    const venda = await Venda.findOne({ where: {id: `${vendaId}`}});
-    if(venda != null){
-        return venda;
-    }else{
+//GET TODAS VENDAS DE UM USER
+async function allVendas(userID){
+    const vendas = await Venda.findAll({ where: {userId: `${userID}`}});
+    if(vendas.length === 0){
         return false;
+    }else{
+        return vendas;
     }
 };
 
 
-module.exports = {get, post, getone};
+module.exports = {get, post, allVendas};

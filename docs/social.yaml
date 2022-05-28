@@ -140,35 +140,11 @@ paths:
           description: Bad request
         "404":
           description: id not found
-  /publicacao/{id_user}:
-    get:
-      tags:
-      - Publicacao
-      summary: Get publicacao reference a id user
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Publicacao'
-        "400":
-          description: Bad request
-        "404":
-          description: id not found
   /publicacao/{id}:
     get:
       tags:
       - Publicacao
-      summary: Get one publicacao
+      summary: Get all publicacao of one specific user
       parameters:
       - name: id
         in: path
@@ -260,30 +236,6 @@ paths:
             application/json:
               schema:
                 description: Venda CREATED success
-        "400":
-          description: Bad request
-        "404":
-          description: id not found
-  /venda/{id_user}:
-    get:
-      tags:
-      - Venda
-      summary: Get venda reference a id user
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Venda'
         "400":
           description: Bad request
         "404":

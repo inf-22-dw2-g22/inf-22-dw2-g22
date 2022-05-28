@@ -30,7 +30,6 @@ const getOne = async (req, res, next) => {
     const userId = await req.params.id;
     const apiKey = await req.get(config.API_KEY_HEADER);
 
-    console.log('ID ->',userId);
 
     if(await getone(userId, apiKey) == false){
         res.json('Usuário não encontrado ou não tem permissão para fazer a pesquisa')

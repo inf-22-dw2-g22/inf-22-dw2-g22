@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 const database = require('../database/db');
 const config = require('../service/config-service')
 
+const User = require('../models/user-model')
+
 const Publicacao = database.define('publicacao', {
     id:{
         type: Sequelize.INTEGER,
@@ -18,6 +20,8 @@ const Publicacao = database.define('publicacao', {
         allowNull: false
     }
 })
+
+User.hasMany(Publicacao);
 /*
 //Verificar se DEV
 if(config.ENV === 'dev'){

@@ -1,14 +1,16 @@
-const { post, get, getone } = require("../service/publicacao-service");
+const { post, get, getone, allPubli } = require("../service/publicacao-service");
+const config = require('../service/config-service');
 
 
 //CRIAR UMA PUBLICAÇÃO NOVA
 const create = async (req, res, next) => {
     const namePubli = req.body.name;
     const descriptionPubli = req.body.description;
+    const apiKey = await req.get(config.API_KEY_HEADER);
 
-    const newPubli = await post(namePubli, descriptionPubli);
+    const newPubli = await post(namePubli, descriptionPubli, apiKey);
     res.json(newPubli);
-}
+};
 
 //GET PARA TODAS AS PUBLICAÇOES
 const getAll = async (req, res, next) => {
@@ -18,18 +20,18 @@ const getAll = async (req, res, next) => {
     }else{
         res.json('Não tem publicações criada');
     }
-}
+};
 
-//GET PARA PEGAR APENAS UMA PUBLICAÇÃO
-const getOne = async (req, res, next) => {
-    const publiId = await req.params.id;
+//GET TODAS PUBLICAÇÕES DE UM USER
+const getAllPubli = async (req, res, next) => {
+    const userID = await req.params.id;
 
-    if(await getone(publiId) == false){
+    if(await allPubli(userID) == false){
         res.json('Publicação não encontrada')
     }else{
-        const publi = await getone(publiId);
-        res.json(publi);
+        const publis = await allPubli(userID);
+        res.json(publis);
     }
 };
 
-module.exports = {create, getAll, getOne};
+module.exports = {create, getAll, getAllPubli};

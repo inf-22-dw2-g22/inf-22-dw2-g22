@@ -1,5 +1,5 @@
 const config = require('../service/config-service');
-const {get, post, getone, put, deleteOne} = require('../service/venda-service');
+const {get, post, allVendas, put, deleteOne} = require('../service/venda-service');
 
 //CRIAR UMA VENDA NOVA
 const create = async (req, res, next) => {
@@ -23,17 +23,17 @@ const getAll = async (req, res, next) => {
     }
 };
 
-//GET PARA PEGAR APENAS UMA VENDA
-const getOne = async (req, res, next) => {
-    const vendaId = await req.params.id;
+//GET TODAS VENDAS DE UM USER
+const getAllVendas = async (req, res, next) => {
+    const userID = await req.params.id;
 
-    if(await getone(vendaId) == false){
+    if(await allVendas(userID) == false){
         res.json('Não foi possível encontrar a venda')
     }else{
-        const venda = await getone(vendaId);
-        res.json(venda);
+        const vendas = await allVendas(userID);
+        res.json(vendas);
     }
 };
 
 
-module.exports = {getAll, create, getOne};
+module.exports = {getAll, create, getAllVendas};
