@@ -43,7 +43,7 @@ async function userValidation(userId, apiKey){
     }else{
         return false;
     }
-}
+};
 
 //GET PARA APENAS UM USER
 async function getone(userId, apiKey){
@@ -57,7 +57,7 @@ async function getone(userId, apiKey){
     }else{
         return userValidation(userId, apiKey);
     }
-}
+};
 
 //EDITAR UM USER
 async function put(apiKey, userId, password, firstName, lastName){
@@ -75,8 +75,7 @@ async function put(apiKey, userId, password, firstName, lastName){
     }else{
         return false;
     }
-    
-}
+};
 
 //DELETAR UM USER
 async function deleteOne(userId, apiKey){

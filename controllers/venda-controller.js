@@ -35,5 +35,35 @@ const getAllVendas = async (req, res, next) => {
     }
 };
 
+//EDITAR UMA VENDA
+const update = async (req, res, next) => {
+    const apiKey = await req.get(config.API_KEY_HEADER);
+    const vendaId = await req.params.id;
+    const vendaType = await req.body.type;
+    const vendaQuantity = await req.body.quantity;
+    const vendaPrice = await req.body.price;
+    const vendaContact = await req.body.contact;
 
-module.exports = {getAll, create, getAllVendas};
+    if(await put(apiKey, vendaId, vendaType, vendaQuantity, vendaPrice, vendaContact)){
+        res.status(200).json({ message: 'Venda atualizada com sucesso!'});
+    }else{
+        res.status(401).json({ message: 'Venda não encontrada ou não tem permissão para editar.'})
+    } 
+};
+
+//DELETAR UMA VENDA
+const del = async (req, res, next) => {
+    const apiKey = await req.get(config.API_KEY_HEADER);
+    const vendaiId = await req.params.id;
+
+
+    if(await deleteOne(vendaiId, apiKey)){
+        res.status(200).json({ message: 'Venda deletada com sucesso!'});
+    }else{
+        res.status(401).json({ message: 'Venda não encontrada ou não tem permissão para deletar.'});
+    }
+
+};
+
+
+module.exports = {getAll, create, getAllVendas, update, del};

@@ -47,8 +47,6 @@ const update = async (req, res, next) =>{
     const firstName = await req.body.firstName;
     const lastName = await req.body.lastName;
 
-    console.log('ID ->',userId);
-
     if(await put(apiKey, userId, password, firstName, lastName)){
         res.status(200).json({ message: 'Usuário atualizado com sucesso!'});
     }else{
@@ -67,7 +65,6 @@ const del = async (req, res, next) => {
     }else{
         res.status(401).json({ message: 'Usuário não encontrado ou não tem permissão para deletar'});
     }
-
 };
 
 module.exports = {getAll, create, getOne, update, del};

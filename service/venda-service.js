@@ -41,5 +41,59 @@ async function allVendas(userID){
     }
 };
 
+//VERICADOR DE DONO DA VENDA
+async function userValidation(publiId, apiKey){
+    const user = await User.findOne({ where: {apiKey: `${apiKey}`}});
+    const vendaOwner = await Venda.findOne({ where: {id: `${publiId}`,userId: `${user.id}`}});
+    if(vendaOwner != null){
+        return user;
+    }else{
+        return false;
+    }
+};
 
-module.exports = {get, post, allVendas};
+//EDITAR UMA VENDA
+async function put(apiKey, vendaId, vendaType, vendaQuantity, vendaPrice, vendaContact){
+
+    if(await userValidation(vendaId, apiKey)){
+        Venda.update(
+            { 
+                type: `${vendaType}`,
+                quantity: `${vendaQuantity}`,
+                price: `${vendaPrice}`,
+                contact: `${vendaContact}`,
+            },
+            { where: {id: `${vendaId}`}}
+        )
+        return true;
+    }else{
+        return false;
+    }  
+};
+
+//VERIFICADOR SE É ADM
+async function adm(apiKey){
+    const user = await User.findOne({ where: {apiKey: `${apiKey}`}});
+    if(user.admin === true){
+        return true;
+    }else{
+        return false;
+    }
+};
+
+//DELETAR UMA VENDA
+async function deleteOne(vendaiId, apiKey){
+    if(await adm(apiKey) === true){
+        Venda.destroy({ where: { id: `${vendaiId}`}});
+        return true;
+    }else{
+        if(await userValidation(vendaiId, apiKey)){
+            Venda.destroy({ where: { id: `${vendaiId}`}});
+            return true;
+        }else{
+            return false;
+        }
+    }
+};
+
+module.exports = {get, post, allVendas, put, deleteOne};

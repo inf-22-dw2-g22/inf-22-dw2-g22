@@ -167,7 +167,15 @@ paths:
     put:
       tags:
       - Publicacao
-      summary: Update one Publicacao
+      summary: Update one publicacao
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -212,7 +220,7 @@ paths:
     get:                 
       tags:               
         - Venda            
-      summary: Get all Venda
+      summary: Get all venda
       security: []  # No security      
       produces:
       - text/plain
@@ -222,7 +230,7 @@ paths:
     post:
       tags:
         - Venda
-      summary: Create Venda
+      summary: Create venda
       requestBody:
         content:
           application/json:
@@ -244,7 +252,7 @@ paths:
     get:
       tags:
       - Venda
-      summary: Get one venda
+      summary: Get all venda of one specific user
       parameters:
       - name: id
         in: path
@@ -268,6 +276,14 @@ paths:
       tags:
       - Venda
       summary: Update one venda
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
