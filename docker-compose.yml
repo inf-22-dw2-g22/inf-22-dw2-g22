@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  app_bd:
+  database:
     container_name: authmysql
     image: mysql:5.7-oracle
     volumes:
@@ -18,7 +18,7 @@ services:
 
   myapp:
     depends_on:
-      - app_bd
+      - database
     container_name: myapp
     build: 
       context: .
