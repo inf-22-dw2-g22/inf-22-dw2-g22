@@ -15,13 +15,14 @@ const Publicacao = database.define('publicacao', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    description:{
+    description:{ 
         type: Sequelize.STRING,
         allowNull: false
     }
 })
 
 User.hasMany(Publicacao);
+
 /*
 //Verificar se DEV
 if(config.ENV === 'dev'){
@@ -35,7 +36,7 @@ if(config.ENV === 'dev'){
     Publicacao.sync();
 }
 */
-Publicacao.sync();
+//Publicacao.sync();
 
 
 module.exports = Publicacao;

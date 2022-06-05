@@ -68,6 +68,6 @@ if(config.ENV === 'dev'){
     User.sync();
 }
 */
-User.sync();
+//User.sync();
 
 module.exports = User;

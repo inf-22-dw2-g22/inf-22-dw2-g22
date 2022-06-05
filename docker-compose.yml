@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  database:
+  docker_db:
     container_name: authmysql
     image: mysql:5.7-oracle
     volumes:
@@ -9,8 +9,8 @@ services:
       - ./database:/tmp/database
     command: mysqld --init-file="/tmp/database/schema.sql"
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
-      MYSQL_DATABASE: app_bd
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: dw2_g22
     ports:
       - 3306:3306  
     networks:
@@ -18,7 +18,7 @@ services:
 
   myapp:
     depends_on:
-      - database
+      - docker_db
     container_name: myapp
     build: 
       context: .
