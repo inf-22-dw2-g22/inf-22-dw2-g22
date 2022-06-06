@@ -1,20 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Social
+  version: 0.0.1
+  description: 'Connect with everyone'
+servers:
+- url: http://localhost:3000
+  description: My localhost
+  variables:
+    basePath:
+      default: /
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        admin:
+          type: boolean
+        apiKey:
+          type: string
+      required:
+        - username
+        - password
+        - firstName
+        - lastName
+        - admin
+        - apiKey
+      additionalProperties: false
+    Publicacao:
+      title: Publicacao
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+        - description
+      additionalProperties: false
+    Venda:
+      title: Venda
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        quantity:
+          type: integer
+          format: int64
+        price:
+          type: integer
+          format: int64
+        contact:
+          type: string
+      required:
+        - type
+        - quantity
+        - price
+        - contact
+      additionalProperties: false
+  examples:
+    UserExemplo01:
+      value:
+        id: 1
+        username: Exemplo 01
+        password: Pass123
+        firstName: Teste
+        lastName: Exemplo
+        admin: true
+        apiKey: xxx
+    UserExemplo02:
+      value:
+        id: 2
+        username: Exemplo 02
+        password: Pass456
+        firstName: Teste2
+        lastName: Exemplo2
+        admin: true
+        apiKey: xxx2
+    PublicacaoExemplo01:
+      value:
+        id: 1
+        name: Exemplo 01
+        description: Hello world!
+    PublicacaoExemplo02:
+      value:
+        id: 2
+        name: Exemplo 02
+        description: Hello world!
+    VendaExemplo01:
+      value:
+        id: 1
+        title: Havaianas
+        type: venda1
+        quantity: 3
+        price: 4
+        contact: 99999999
+    VendaExemplo02:
+      value:
+        id: 2
+        title: Havaianas2
+        type: venda2
+        quantity: 4
+        price: 5
+        contact: 33333333
 paths:
-  /users/:
-    get:                 
-      tags:               
-        - User            
-      summary: Get all users
-      security: []  # No security
-      produces:
-      - text/plain
-      responses:          
-        200:
-          description: Success Message
+  /users:
+    get:
+      tags:
+        - UserController
+      operationId: retrieveUsers
+      summary: Retrieve users
+      responses:
+        '200':
+          description: Array of Users model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                xml:
+                  name: Users
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
     post:
       tags:
-        - User
+        - UserController
+      operationId: createUser
       summary: Create new user
-      security: [] # No security
       requestBody:
         content:
           application/json:
@@ -35,7 +173,8 @@ paths:
   /users/{id}:
     get:
       tags:
-      - User
+      - UserController
+      operationId: retrieveUser
       summary: Get one user
       parameters:
       - name: id
@@ -58,7 +197,8 @@ paths:
           description: id not found
     put:
       tags:
-      - User
+      - UserController
+      operationId: updateUser
       summary: Update user
       parameters:
       - name: id
@@ -87,7 +227,8 @@ paths:
           description: id not found
     delete:
       tags:
-      - User
+        - UserController
+      operationId: deleteUser
       summary: Delete user
       parameters:
       - name: id
@@ -98,61 +239,22 @@ paths:
         schema:
           type: string
       responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                description: user DELETED success
-        "400":
-          description: Bad request
-        "404":
-          description: id not found
-  /publicacao/:
-    get:                 
-      tags:               
-        - Publicacao            
-      summary: Get all publicacao
-      security: []  # No security
-      produces:
-      - text/plain
-      responses:          
-        200:
-          description: Success Message
-    post:
-      tags:
-        - Publicacao
-      summary: Create publicacao
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Publicacao'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                description: publicacao CREATED success
-        "400":
-          description: Bad request
-        "404":
-          description: id not found
-  /publicacao/{id}:
+          "200":
+            description: Success
+            content:
+              application/json:
+                schema:
+                  description: user DELETED success
+          "400":
+            description: Bad request
+          "404":
+            description: id not found
+  /publicacao:
     get:
       tags:
-      - Publicacao
-      summary: Get all publicacao of one specific user
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
+        - PublicacaoController
+      operationId: retrievePublicacao
+      summary: Retrieve Publicacao
       responses:
         "200":
           description: Success
@@ -166,22 +268,9 @@ paths:
           description: id not found
     put:
       tags:
-      - Publicacao
-      summary: Update one publicacao
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Publicacao'
-        required: true
+        - PublicacaoController
+      operationId: createPublicacao
+      summary: Create publicacao
       responses:
         "200":
           description: Success
@@ -193,18 +282,76 @@ paths:
           description: Bad request
         "404":
           description: id not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publicacao'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Publicacao'
+  /publicacao/{id}:
+    get:
+      tags:
+        - PublicacaoController
+      operationId: retrievePublicacaoId
+      summary: Retrieve publicacao
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publicacao'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+    put:
+      tags:
+        - PublicacaoController
+      operationId: updatePublicacaoId
+      summary: Update publicacao
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Publicacao PUT success
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publicacao'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Publicacao'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
     delete:
       tags:
-      - Publicacao
+        - PublicacaoController
+      operationId: deletePublicacao
       summary: Delete publicacao
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
       responses:
         "200":
           description: Success
@@ -216,51 +363,68 @@ paths:
           description: Bad request
         "404":
           description: id not found
-  /venda/:
-    get:                 
-      tags:               
-        - Venda            
-      summary: Get all venda
-      security: []  # No security      
-      produces:
-      - text/plain
-      responses:          
-        200:
-          description: Success Message
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+  /venda:
+    get:
+      tags:
+        - VendaController
+      operationId: retrieveVenda
+      summary: Retrieve venda
+      responses:
+        '200':
+          description: Array of Venda model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Venda'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Venda'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
     post:
       tags:
-        - Venda
+        - VendaController
+      operationId: createVenda
       summary: Create venda
+      responses:
+        '200':
+          description: Creat a Venda model instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Venda'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Venda'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                description: Venda CREATED success
-        "400":
-          description: Bad request
-        "404":
-          description: id not found
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Venda'
   /venda/{id}:
     get:
       tags:
-      - Venda
-      summary: Get all venda of one specific user
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
+        - VendaController
+      operationId: retrieveVendaId
+      summary: Retrieve venda
       responses:
         "200":
           description: Success
@@ -272,26 +436,28 @@ paths:
           description: Bad request
         "404":
           description: id not found
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          required: true
+          examples:
+            one:
+              value: 1
+              summary: Retrieve Venda id 1
+            two:
+              value: 2
+              summary: Retrieve Venda id 2
     put:
       tags:
-      - Venda
-      summary: Update one venda
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Venda'
-        required: true
+        - VendaController
+      operationId: updateVenda
+      summary: Update venda
       responses:
-        "200":
+        '200':
           description: Success
           content:
             application/json:
@@ -301,80 +467,54 @@ paths:
           description: Bad request
         "404":
           description: id not found
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          required: true
+          examples:
+            one:
+              value: 1
+              summary: Update Venda id 1
+            two:
+              value: 2
+              summary: Update Venda id 2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Venda'
+            examples:
+              VendaExample01:
+                $ref: '#/components/examples/VendaExemplo01'
+              VendaExample02:
+                $ref: '#/components/examples/VendaExemplo02'
     delete:
       tags:
-      - Venda
+        - VendaController
+      operationId: deleteVenda
       summary: Delete venda
-      parameters:
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
       responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                description: Venda DELETED success
-        "400":
-          description: Bad request
-        "404":
+        '204':
+          description: No Content
+        '404':
           description: id not found
-components:
-  schemas:
-    User:
-      title: User
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        username:
-          type: string
-        password:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        admin:
-          type: boolean
-        apiKey:
-          type: string
-      additionalProperties: false
-    Publicacao:
-      title: Publicacao
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-      additionalProperties: false
-    Venda:
-      title: Venda
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        type:
-          type: string
-        quantity:
-          type: integer
-          format: int64
-        price:
-          type: integer
-          format: int64
-        contact:
-          type: string
-      additionalProperties: false      
-        
-  
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          required: true
+          examples:
+            one:
+              value: 1
+              summary: Delete Venda id 1
+            two:
+              value: 2
+              summary: Delete Venda id 2
