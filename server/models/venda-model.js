@@ -43,7 +43,7 @@ if(config.ENV === 'dev'){
     Publicacao.sync();
 }
 */
-//Venda.sync();
+Venda.sync();
 
 
 module.exports = Venda;

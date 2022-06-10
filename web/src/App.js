@@ -1,7 +1,9 @@
-import {BrowserRouter,Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import React from 'react';
+
+//PAGES
 import SignInAndSignUpPage from './pages/sing-in-and-sign-up/sign-in-and-sign-up.component';
-import SignUp from './components/sign-up/sign-up.component';
+import Home from './pages/home/home.component';
 
 
 
@@ -19,7 +21,8 @@ class App extends React.Component {
     return (
       <div>
         <Routes>
-          <Route path='/' element={<SignInAndSignUpPage />} />
+          <Route exact path='/' element={<SignInAndSignUpPage/>} />
+          <Route exact path='/home' element={<Home/>} />
         </Routes>
       </div>
     );

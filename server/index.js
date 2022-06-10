@@ -13,9 +13,11 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const userRoute = require('./routes/user-route');
 const publiRoute = require('./routes/publicacao-route');
 const vendaRoute = require('./routes/venda-route');
+const registerRoute = require('./routes/register-route');
 app.use('/users', userRoute);
 app.use('/publicacao', publiRoute);
 app.use('/venda', vendaRoute);
+app.use('/register', registerRoute);
 
 //Start server
 app.listen(config.PORT, function () {

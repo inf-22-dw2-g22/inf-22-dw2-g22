@@ -36,7 +36,7 @@ if(config.ENV === 'dev'){
     Publicacao.sync();
 }
 */
-//*Publicacao.sync();
+Publicacao.sync();
 
 
 module.exports = Publicacao;

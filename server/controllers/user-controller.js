@@ -1,6 +1,6 @@
 
 const config = require('../service/config-service');
-const {get, post, getone, put, deleteOne} = require('../service/user-service');
+const {get, post, getone, put, deleteOne, sigIn} = require('../service/user-service');
 
 //CRIAR UM USUARIO NOVO
 const create = async (req, res, next) => {
@@ -67,4 +67,23 @@ const del = async (req, res, next) => {
     }
 };
 
-module.exports = {getAll, create, getOne, update, del};
+//SIGN-IN
+const login = async ( req, res, next) => {
+    const username = await req.body.username;
+    const password = await req.body.password;
+    const apiKey = await req.body.apiKey;
+    
+
+    console.log('TESTEEEEEEE',username);
+
+    
+    if(await sigIn(username, password, apiKey) == false){
+        console.log('FALSE')
+        res.send({authenticated: false});
+    }else{
+        console.log('TRUE')
+        res.send({authenticated: true});
+    }
+};
+
+module.exports = {getAll, create, getOne, update, del, login};

@@ -91,4 +91,18 @@ async function deleteOne(userId, apiKey){
         }
     }
 }
-module.exports = {get, post, getone, put, deleteOne};
+
+//SIG-IN
+async function sigIn(username, password, apiKey){
+
+    const user = await User.findOne({ where: {username: `${username}`,
+    password: `${password}`, apiKey: `${apiKey}`}});
+    console.log('USER ->>>', user)
+    if(user != null){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+module.exports = {get, post, getone, put, deleteOne, sigIn};
