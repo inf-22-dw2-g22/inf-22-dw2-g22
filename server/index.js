@@ -1,7 +1,7 @@
 const express = require("express");
-const cors = require("cors");
+const cors = require("cors"); /* serve para poder fazer ligaçao com outras portas */
 const swaggerUi = require("swagger-ui-express");
-const app = express();
+const app = express(); /* construtor do express  */
 const swaggerSpec = require('./controllers/swagger-controller');
 const config = require('./service/config-service');
 
@@ -11,13 +11,11 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //Routes
 const userRoute = require('./routes/user-route');
-const publiRoute = require('./routes/publicacao-route');
-const vendaRoute = require('./routes/venda-route');
 const registerRoute = require('./routes/register-route');
+const authRoute = require('./routes/auth-route');
 app.use('/users', userRoute);
-app.use('/publicacao', publiRoute);
-app.use('/venda', vendaRoute);
 app.use('/register', registerRoute);
+app.use('/auth', authRoute);
 
 //Start server
 app.listen(config.PORT, function () {

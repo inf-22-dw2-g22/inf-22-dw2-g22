@@ -2,14 +2,12 @@ const User = require('../models/user-model');
 
 
 //CRIAR UM USUARIO NOVO
-async function post(username, password, firstName, lastName, admin, apiKey){
+async function post(username, password, firstName, lastName){
     const user = await User.create({
         username: `${username}`,
         password: `${password}`,
         firstName: `${firstName}`,
-        lastName: `${lastName}`,
-        admin: `${admin}`,
-        apiKey: `${apiKey}`,
+        lastName: `${lastName}`
     })
     return user;
 };
@@ -24,80 +22,39 @@ async function get(){
     }
 };
 
-//VERIFICADOR SE É ADM
-async function adm(apiKey){
-    const user = await User.findOne({ where: {apiKey: `${apiKey}`}});
-    if(user.admin === true){
-        return true;
-    }else{
-        return false;
-    }
-};
 
-//VERIFICADOR DE USUARIO VALIDO
-async function userValidation(userId, apiKey){
-    const user = await User.findOne({ where: {id: `${userId}`,apiKey: `${apiKey}`}});
-    console.log(user);
-    if(user != null){
-        return user;
-    }else{
-        return false;
-    }
-};
-
-//GET PARA APENAS UM USER
-async function getone(userId, apiKey){
-    if(await adm(apiKey) === true){
-        const user = await User.findOne({ where: {id: `${userId}`}});
-        if(user != null){
-            return user;
-        }else{
-            return false;
-        }
-    }else{
-        return userValidation(userId, apiKey);
-    }
-};
 
 //EDITAR UM USER
-async function put(apiKey, userId, password, firstName, lastName){
+async function put(userId, username, password, firstName, lastName){
 
-    if(await userValidation(userId, apiKey)){
-        User.update(
-            { 
-                password: `${password}`,
-                firstName: `${firstName}`,
-                lastName: `${lastName}`,
-            },
-            { where: {id: `${userId}`}}
-        )
-        return true;
-    }else{
-        return false;
-    }
+
+    User.update(
+        {
+            username: `${username}` ,
+            password: `${password}`,
+            firstName: `${firstName}`,
+            lastName: `${lastName}`,
+        },
+        { where: {id: `${userId}`}}
+    )
+    return true;
+
 };
 
 //DELETAR UM USER
-async function deleteOne(userId, apiKey){
-    if(await adm(apiKey) === true){
+async function deleteOne(userId){
+    
         User.destroy({ where: { id: `${userId}`}});
         return true;
-    }else{
-        if(await userValidation(userId, apiKey)){
-            User.destroy({ where: { id: `${userId}`}});
-            return true;
-        }else{
-            return false;
-        }
-    }
+    
 }
 
 //SIG-IN
-async function sigIn(username, password, apiKey){
+async function sigIn(username, password){
 
     const user = await User.findOne({ where: {username: `${username}`,
-    password: `${password}`, apiKey: `${apiKey}`}});
-    console.log('USER ->>>', user)
+    password: `${password}`}});
+
     if(user != null){
         return true;
     }else{
@@ -105,4 +62,4 @@ async function sigIn(username, password, apiKey){
     }
 
 }
-module.exports = {get, post, getone, put, deleteOne, sigIn};
+module.exports = {get, post, put, deleteOne, sigIn};

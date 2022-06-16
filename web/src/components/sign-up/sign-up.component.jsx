@@ -1,5 +1,6 @@
 import React from 'react';
 import './sign-up.styles.scss';
+import Axios from 'axios';
 
 
 
@@ -12,9 +13,16 @@ class SignUp extends React.Component {
             password: '',
             firstName: '',
             lastName: '',
-            admin: '',
-            apiKey: ''
         };
+    }
+
+    handleSubmit = async (event)=> {
+        await Axios.post("http://localhost:3305/register", {
+            username: this.state.username,
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+        });
     }
 
     handleChange = event => {
@@ -80,31 +88,6 @@ class SignUp extends React.Component {
                         />
                         <span className="placeholder">Last Name</span>
                     </label>
-                    <label className="custom-field two">
-                        <input
-                            type="boolean"
-                            name="admin"
-                            onChange={this.handleChange}
-                            value={this.admin}
-                            className='custom-field two'
-                            placeholder="&nbsp;"
-                            required
-                        />
-                        <span className="placeholder">Admin</span>
-                    </label>
-                    <label className="custom-field two">
-                        <input
-                            type="text"
-                            name="apiKey"
-                            onChange={this.handleChange}
-                            value={this.apiKey}
-                            className='custom-field two'
-                            placeholder="&nbsp;"
-                            required
-                        />
-                        <span className="placeholder">ApiKey</span>
-                    </label>
-
                     <button type="submit" className='grayscale-decrease'>REGISTER</button>
                 </form>
             </div>

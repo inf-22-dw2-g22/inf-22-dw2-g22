@@ -25,14 +25,6 @@ const User = database.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    admin:{
-        type: Sequelize.BOOLEAN,
-        allowNull: false
-    },
-    apiKey:{
-        type: Sequelize.STRING,
-        allowNull: false
-    }
 })
 
 /*
