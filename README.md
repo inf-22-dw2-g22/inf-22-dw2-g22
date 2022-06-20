@@ -9,25 +9,18 @@ repo_url:
 
 
 # SOCIAL
-## _Troque informações, faça anuncios, realize suas vendas, procure emprego. Tudo em um só lugar_
+## _Gestão de utilizadores com uma camada de autenticação JWT
 
 
-Social  é uma rede social associada a uvem, pronta para todos os dispositivos, com armazenamento offline, desenvolvida em React, NodeJS e MySQL. 
-
-- Encontre pessoas
-- Faça anuncios
-- Encontre emprego
-- Faça amigos
-- ✨Movimente a Vida✨
-
+Social é uma API, pronta para gerir utilizadores (criar, visualizar, editar e excluir) com autenticação por JWT, desenvolvida em React, NodeJS e MySQL. 
 
 ## Features
 
-- Tenha acesso a uma comunidade de pessoas que procurar e precisam das mesmas coisas que você
-- Tenha acesso a anuncios de emprego e de produtos
-- Atraves da sua conta encontre, crie e edite anuncios de venda de produtos
-- Através da sua conta encontre, crie e edite publicações
-- Através da sua conta encontre outros utilizadores
+- Crie utilizadores;
+-✨Efetue autenticação✨;
+- Visualize utilizadores;
+- Edite utilizadores;
+- Exclua utilizadores;
 
 
 ## Tech

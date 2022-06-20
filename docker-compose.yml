@@ -3,7 +3,7 @@ version: "3.7"
 services:
   docker_db:
     container_name: authmysql
-    image: mysql:5.7-oracle
+    image: mysql
     volumes:
       - test-data:/var/lib/mysql
       - ./database:/tmp/database
