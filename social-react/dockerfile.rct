@@ -1,0 +1,15 @@
+FROM node:16.10.0-alpine3.14
+
+RUN mkdir -p /home/node/app/rct
+
+WORKDIR /home/node/app/rct
+
+COPY package*.json /home/node/app/rct
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]

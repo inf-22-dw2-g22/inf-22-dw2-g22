@@ -1,0 +1,63 @@
+version: "3.7"
+
+services:
+  docker_db:
+    container_name: authmysql
+    image: mysql:5.7-oracle
+    volumes:
+      - test-data:/var/lib/mysql
+      - ./database:/tmp/database
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: dw2_g22
+    ports:
+      - 3306:3306  
+    networks:
+      - auth-networks
+
+
+  myapp:
+     depends_on:
+       - docker_db
+     container_name: myapp
+     build: 
+       context: .
+       dockerfile: ./Dockerfile
+     ports:
+       - 3305:3305
+     expose:
+       - 3305
+     working_dir: /app
+     volumes:
+       - ./:/myapp
+     networks:
+       - auth-networks
+       
+
+  react:
+    depends_on:
+        - docker_db
+    container_name: react
+    image: social-react
+    build:
+      context: ./social-react/
+      dockerfile: ./dockerfile.rct
+    volumes:
+      - './:/app/rct'
+      - '/app/rct/node_modules/'
+    ports:
+      - 3002:3000
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+    networks:
+      - api-network
+
+volumes:
+  test-data:
+
+networks:
+  auth-networks:
+  api-network: null

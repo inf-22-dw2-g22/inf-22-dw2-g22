@@ -1,1 +1,0 @@
-CREATE DATABASE dw2_g22;

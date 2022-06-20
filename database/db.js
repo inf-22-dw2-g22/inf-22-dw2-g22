@@ -8,5 +8,5 @@ const sequelize = new Sequelize(`${config.DB_DATABASE}`, `${config.DB_USERNAME}`
     host: `${config.DB_HOST}`,
     port: `${config.DB_PORT}`
 })
-
+sequelize.sync();
 module.exports = sequelize;
